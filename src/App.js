@@ -1,11 +1,11 @@
 import {useState, useEffect} from "react";
 import React from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 
-const apiUrl = 'https://alstons.pythonanywhere.com/';
+// const apiUrl = 'https://alstons.pythonanywhere.com/';
 
 function App() {
-  // const [menu, setMenu] = useState([]);
+  
   // useEffect(async () => {
   //   axios.get(apiUrl + 'food_menu/dict')
   //       .then((data)=> {
@@ -13,44 +13,105 @@ function App() {
   //           debugger
   //       })
   // }, []);
-
-  // return(
-  //   <div className="app">
-  //     app
-  //   </div>
-
-  // );
-
-  // Testing getting data back from other api server 
-  const [people, setPeople] = useState([]);
-  const [error, setError] = useState('');
-  
+  const [menu, setMenu] = useState([]);
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await axios.get('https://swapi.dev/api/people/');
-        setPeople(data.data?.results);
-      } catch (e) {
-        setError('Something went wrong');
-      }
-    };
-    fetchData();
-  }, []);
-  
+    fetch("/food_menu/dict")
+      .then(res => res.json())
+      .then(menu => {
+        setMenu(menu)
+        console.log("There was a response")
+        console.log(menu)
+      })
+      .catch(error => console.error(error))
+      console.log("In Error")
+  }, [])
+
+  console.log(menu)
+  console.log("Hello")
+
   return (
-    <div className="Application Test">
-      {error && <h3>{error}</h3>}
-      {people.length ? (
-        <div>
-          {people.map((person) => (
-            <h1>{person.name}</h1>
-          ))}
-        </div>
+    <div className="Testing React">
+      {(menu && menu.Data) ? (
+        Object.entries(menu.Data).map(([key, value]) => (
+          <div key={key}>
+            <h3>{value.name}</h3>
+            <p>Meal of Day: {value['meal of Day']}</p>
+            <p>Ingredients: {value.ingredients}</p>
+            <p>Calories: {value.calories}</p>
+            <p>Macronutrients: {value.Macronutrients}</p>
+            <p>Micronutrients: {value.Micronutrients}</p>
+          </div>
+        ))        
       ) : (
-        <div>loading ....</div>
+        <p>Loading...</p>
       )}
     </div>
-  );  
+  );
+
+
+  // const [menu, setMenu] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
+
+  // useEffect(() => {
+  //   fetch("http://localhost:8000/food_types/list")
+  //     .then(res => res.json())
+  //     .then(menu => {
+  //       setMenu(menu)
+  //       console.log("There was a response")
+  //       console.log(menu)
+  //     })
+  //     .catch(error => console.error(error))
+  //     console.log("In Error")
+  // }, [])
+
+  // console.log(menu)
+  // console.log("Hello")
+  
+  // return (
+  //   <div className="Testing React">
+  //     {(menu && menu.food_types_list) ? (
+  //       menu.food_types_list.map((foodType) => (
+  //         <div key={foodType}>
+  //           <h3>{foodType}</h3>
+  //         </div>
+  //       ))        
+  //     ) : (
+  //       <p>Loading...</p>
+  //     )}
+  //   </div>
+  // );
+
+  
+  // Testing getting data back from other api server 
+//   const [people, setPeople] = useState([]);
+//   const [error, setError] = useState('');
+  
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const data = await axios.get('https://swapi.dev/api/people/');
+//         setPeople(data.data?.results);
+//       } catch (e) {
+//         setError('Something went wrong');
+//       }
+//     };
+//     fetchData();
+//   }, []);
+  
+//   return (
+//     <div className="Application Test">
+//       {error && <h3>{error}</h3>}
+//       {people.length ? (
+//         <div>
+//           {people.map((person) => (
+//             <h1>{person.name}</h1>
+//           ))}
+//         </div>
+//       ) : (
+//         <div>loading ....</div>
+//       )}
+//     </div>
+//   );  
 }
 
 export default App;

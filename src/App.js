@@ -14,23 +14,28 @@ function App() {
   //       })
   // }, []);
   const [menu, setMenu] = useState([]);
-  useEffect(() => {
+  const [showData, setShowData] = useState(true);
+
+  const fetchData = () => {
     fetch(apiUrl + "/food_menu/dict")
-      .then(res => res.json())
-      .then(menu => {
-        setMenu(menu)
-        console.log("There was a response")
-        console.log(menu)
+      .then((res) => res.json())
+      .then((menu) => {
+        setMenu(menu);
+        setShowData(true);
+        console.log("There was a response");
+        console.log(menu);
       })
-      .catch(error => console.error(error))
-      console.log("In Error")
-  }, [])
+      .catch((error) => console.error(error));
+    console.log("In Error");
+  };
+
 
   console.log(menu)
   console.log("Hello")
 
   return (
     <div className="Testing React">
+      <button onClick={fetchData}>Show Information</button>
       {(menu && menu.Data) ? (
         Object.entries(menu.Data).map(([key, value]) => (
           <div key={key}>

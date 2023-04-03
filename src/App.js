@@ -1,11 +1,11 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import React from 'react';
 //import axios from 'axios';
 
-const apiUrl = 'https://alstons.pythonanywhere.com/';
+const apiUrl = 'https://cheffing-it-up.herokuapp.com/';
 
 function App() {
-  
+
   // useEffect(async () => {
   //   axios.get(apiUrl + 'food_menu/dict')
   //       .then((data)=> {
@@ -32,7 +32,7 @@ function App() {
   };
 
   const fetchFoodTypes = () => {
-    fetch(apiUrl+ "/food_types/list")
+    fetch(apiUrl + "/food_types/list")
       .then((res) => res.json())
       .then((foodTypes) => {
         setFoodTypes(foodTypes);
@@ -105,7 +105,7 @@ function App() {
 
   // console.log(menu)
   // console.log("Hello")
-  
+
   // return (
   //   <div className="Testing React">
   //     {(menu && menu.food_types_list) ? (

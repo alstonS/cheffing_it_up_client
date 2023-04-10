@@ -6,10 +6,10 @@ export const Navigation = () => {
 
     return (
         <div className="navbar">
-            <div className="logo">Cheffing It Up</div>
+            <div className="nav-title"><Link to="/">Cheffing It Up </Link></div>
             <ul className="nav-links">
-                <Link to="/">Home</Link>
                 <Link to="/foodlist">Food List</Link>
+                <Link to="/addrecipe">Add a Recipe</Link>
             </ul>
         </div>
     );

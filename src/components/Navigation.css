@@ -1,0 +1,22 @@
+.navbar {
+width: 100%;
+  min-height: 10vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: #fff;
+  background: rgb(0, 0, 0);
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+.navbar .nav-links {
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+}
+
+.navbar .nav-links>a{
+    color: #fff;
+    text-decoration: none;
+  }

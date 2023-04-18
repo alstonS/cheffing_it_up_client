@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from 'react';
 //import axios from 'axios';
 
@@ -18,31 +18,49 @@ function FoodList() {
     const [showData, setShowData] = useState(false);
     const [showFoodTypes, setShowFoodTypes] = useState(false);
 
-    const fetchData = () => {
-        fetch(apiUrl + "/food_menu/dict")
-            .then((res) => res.json())
-            .then((menu) => {
-                setMenu(menu);
-                setShowData(true);
-                console.log("There was a response");
-                console.log(menu);
-            })
-            .catch((error) => console.error(error));
-        console.log("In Error");
+    const handleDataToggle = () => {
+        setShowData((current) => !current);
     };
 
-    const fetchFoodTypes = () => {
-        fetch(apiUrl + "/food_types/list")
-            .then((res) => res.json())
-            .then((foodTypes) => {
-                setFoodTypes(foodTypes);
-                setShowFoodTypes(true);
-                console.log("There was a response");
-                console.log(foodTypes);
-            })
-            .catch((error) => console.error(error));
-        console.log("In Error");
+    const handleTypesToggle = () => {
+        setShowFoodTypes((current) => !current);
     };
+
+    useEffect(() => {
+        const fetchData = () => {
+            fetch(apiUrl + "/food_menu/dict")
+                .then((res) => res.json())
+                .then((menu) => {
+                    setMenu(menu);
+                    setShowData(true);
+                    console.log("There was a response");
+                    console.log(menu);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    console.log("In Error");
+                });
+        }
+        const fetchFoodTypes = () => {
+            fetch(apiUrl + "/food_types/list")
+                .then((res) => res.json())
+                .then((foodTypes) => {
+                    setFoodTypes(foodTypes);
+                    setShowFoodTypes(true);
+                    console.log("There was a response");
+                    console.log(foodTypes);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    console.log("In Error");
+                });
+        };
+        fetchData();
+        fetchFoodTypes();
+    }, []);
+
+
+
 
 
 
@@ -51,8 +69,8 @@ function FoodList() {
 
     return (
         <div className="Testing React">
-            <button onClick={fetchData}>Show Information</button>
-            <button onClick={fetchFoodTypes}>Show Food Types</button>
+            <button onClick={handleDataToggle}>Show Information</button>
+            <button onClick={handleTypesToggle}>Show Food Types</button>
             {showData && (
                 <>
                     {menu && menu.Data ? (
@@ -62,8 +80,8 @@ function FoodList() {
                                 <p>Meal of Day: {value["meal of Day"]}</p>
                                 <p>Ingredients: {value.ingredients}</p>
                                 <p>Calories: {value.calories}</p>
-                                <p>Macronutrients: {value.Macronutrients}</p>
-                                <p>Micronutrients: {value.Micronutrients}</p>
+                                <p>Macronutrients: {JSON.stringify(value.Macronutrients)}</p>
+                                <p>Micronutrients: {JSON.stringify(value.Micronutrients)}</p>
                             </div>
                         ))
                     ) : (

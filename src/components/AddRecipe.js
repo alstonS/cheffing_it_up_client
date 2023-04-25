@@ -6,7 +6,7 @@ import './AddRecipe.css'
 const apiUrl = 'https://cheffing-it-up.herokuapp.com/';
 
 export const AddRecipe = () => {
-    const [data, setData] = useState();
+    //const [data, setData] = useState();
 
     const {
         register,
@@ -14,22 +14,24 @@ export const AddRecipe = () => {
         formState: { errors }
     } = useForm();
 
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-    };
-
-    const addData = () => {
+    const addData = (data) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        };
+    
         fetch(apiUrl + "food_menu/add", requestOptions)
             .then((res) => res.json())
             .catch((error) => console.error(error));
     };
-
+    
     const onSubmit = (data) => {
-        setData(data);
+
+        data.Macronutrients = JSON.parse(data.Macronutrients);
+        data.Micronutrients = JSON.parse(data.Micronutrients);
         console.log(JSON.stringify(data));
-        addData();
+        addData(data);
     };
 
 

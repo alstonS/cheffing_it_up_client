@@ -28,7 +28,7 @@ function FoodList() {
 
     useEffect(() => {
         const fetchData = () => {
-            fetch(apiUrl + "/food_menu/dict")
+            fetch(apiUrl + "/recipes/dict")
                 .then((res) => res.json())
                 .then((menu) => {
                     setMenu(menu);
@@ -78,7 +78,7 @@ function FoodList() {
                             <div key={key}>
                                 <h3>{value.name}</h3>
                                 <p>Meal of Day: {value["meal of Day"]}</p>
-                                <p>Ingredients: {value.ingredients}</p>
+                                <p>Ingredients: {JSON.stringify(value.ingredients)}</p>
                                 <p>Calories: {value.calories}</p>
                                 <p>Macronutrients: {JSON.stringify(value.Macronutrients)}</p>
                                 <p>Micronutrients: {JSON.stringify(value.Micronutrients)}</p>

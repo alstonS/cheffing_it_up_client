@@ -20,12 +20,12 @@ export const AddRecipe = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
         };
-    
-        fetch(apiUrl + "food_menu/add", requestOptions)
+
+        fetch(apiUrl + "recipes/add", requestOptions)
             .then((res) => res.json())
             .catch((error) => console.error(error));
     };
-    
+
     const onSubmit = (data) => {
 
         data.Macronutrients = JSON.parse(data.Macronutrients);

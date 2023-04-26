@@ -8,7 +8,7 @@ export const Navigation = () => {
         <div className="navbar">
             <div className="nav-title"><Link to="/">Cheffing It Up </Link></div>
             <ul className="nav-links">
-                <Link to="/foodlist">Food List</Link>
+                <Link to="/foodlist">Recipe List</Link>
                 <Link to="/addrecipe">Add a Recipe</Link>
             </ul>
         </div>

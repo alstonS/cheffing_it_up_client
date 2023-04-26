@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import React from 'react';
 //import axios from 'axios';
+import './FoodList.css'
 
 const apiUrl = 'https://cheffing-it-up.herokuapp.com/';
 
 function FoodList() {
 
     // useEffect(async () => {
-    //   axios.get(apiUrl + 'food_menu/dict')
+    //   axios.get(apiUrl + 'recipes/dict')
     //       .then((data)=> {
     //           console.log(data);
     //           debugger
@@ -41,22 +42,22 @@ function FoodList() {
                     console.log("In Error");
                 });
         }
-        const fetchFoodTypes = () => {
-            fetch(apiUrl + "/food_types/list")
-                .then((res) => res.json())
-                .then((foodTypes) => {
-                    setFoodTypes(foodTypes);
-                    setShowFoodTypes(true);
-                    console.log("There was a response");
-                    console.log(foodTypes);
-                })
-                .catch((error) => {
-                    console.error(error);
-                    console.log("In Error");
-                });
-        };
+        // const fetchFoodTypes = () => {
+        //     fetch(apiUrl + "/food_types/list")
+        //         .then((res) => res.json())
+        //         .then((foodTypes) => {
+        //             setFoodTypes(foodTypes);
+        //             setShowFoodTypes(true);
+        //             console.log("There was a response");
+        //             console.log(foodTypes);
+        //         })
+        //         .catch((error) => {
+        //             console.error(error);
+        //             console.log("In Error");
+        //         });
+        // };
         fetchData();
-        fetchFoodTypes();
+        // fetchFoodTypes();
     }, []);
 
 
@@ -69,26 +70,33 @@ function FoodList() {
 
     return (
         <div className="Testing React">
-            <button onClick={handleDataToggle}>Show Information</button>
-            <button onClick={handleTypesToggle}>Show Food Types</button>
-            {showData && (
-                <>
-                    {menu && menu.Data ? (
-                        Object.entries(menu.Data).map(([key, value]) => (
-                            <div key={key}>
-                                <h3>{value.name}</h3>
-                                <p>Meal of Day: {value["meal of Day"]}</p>
-                                <p>Ingredients: {JSON.stringify(value.ingredients)}</p>
-                                <p>Calories: {value.calories}</p>
-                                <p>Macronutrients: {JSON.stringify(value.Macronutrients)}</p>
-                                <p>Micronutrients: {JSON.stringify(value.Micronutrients)}</p>
-                            </div>
-                        ))
-                    ) : (
-                        <p>Loading...</p>
-                    )}
-                </>
-            )}
+            {/* <button onClick={handleDataToggle}>Show Information</button> */}
+            {/* <button onClick={handleTypesToggle}>Show Food Types</button> */}
+            {/* {showData && ( */}
+            <>
+                {menu && menu.Data ? (
+                    Object.entries(menu.Data).map(([key, value]) => (
+                        <div key={key}>
+                            <h3>{value.name}</h3>
+                            <p>Meal of Day: {value["meal of Day"]}</p>
+                            <p>Ingredients: {(value.ingredients).join(', ')}</p>
+                            <p>Calories: {value.calories}</p>
+                            <p>Macronutrients:</p>
+                            <p class='indent'> Protein: {value.Macronutrients['Protein']} grams</p>
+                            <p class='indent'> Carbohydrates: {value.Macronutrients['Carbohydrates']} grams</p>
+                            <p class='indent'> Fats: {value.Macronutrients['Fat']} grams</p>
+                            <p>Micronutrients: </p>
+                            <p class='indent'> Vitamin A: {value.Micronutrients['Vitamin A']} grams</p>
+                            <p class='indent'> Vitamin C: {value.Micronutrients['Vitamin C']} grams</p>
+                            <p class='indent'> Calcium: {value.Micronutrients['Calcium']} grams</p>
+                            <p class='indent'> Iron: {value.Micronutrients['Iron']} grams</p>
+                        </div>
+                    ))
+                ) : (
+                    <p>Loading...</p>
+                )}
+            </>
+            {/* )}
             {showFoodTypes && (
                 <>
                     {foodTypes && foodTypes.food_types_list ? (
@@ -101,7 +109,7 @@ function FoodList() {
                         <p>Loading...</p>
                     )}
                 </>
-            )}
+            )} */}
         </div>
     );
 

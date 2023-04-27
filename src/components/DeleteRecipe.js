@@ -17,20 +17,24 @@ export const DeleteRecipe = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name }),
         };
-
+    
         fetch(apiUrl + 'recipes/delete', requestOptions)
             .then((res) => {
                 if (res.status === 200) {
                     alert('Successfully deleted the recipe.');
                 } else {
-                    alert('Error deleting the recipe.');
+                    res.json().then((data) => {
+                        console.log('Error data:', data);
+                        alert('Error deleting the recipe.');
+                    });
                 }
             })
             .catch((error) => {
-                console.error(error);
+                console.error('Error:', error);
                 alert('Error deleting the recipe.');
             });
     };
+    
 
     const onSubmit = (data) => {
         deleteData(data.name);

@@ -10,6 +10,7 @@ export const Navigation = () => {
             <ul className="nav-links">
                 <Link to="/foodlist">Recipe List</Link>
                 <Link to="/addrecipe">Add a Recipe</Link>
+                <Link to="/deleterecipe">Delete a Recipe</Link>
             </ul>
         </div>
     );

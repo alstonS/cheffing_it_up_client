@@ -15,10 +15,9 @@ export const DeleteRecipe = () => {
         const requestOptions = {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name }),
         };
-    
-        fetch(apiUrl + 'recipes/delete', requestOptions)
+
+        fetch(apiUrl + 'recipes/delete/' + name, requestOptions)
             .then((res) => {
                 if (res.status === 200) {
                     alert('Successfully deleted the recipe.');
@@ -34,7 +33,7 @@ export const DeleteRecipe = () => {
                 alert('Error deleting the recipe.');
             });
     };
-    
+
 
     const onSubmit = (data) => {
         deleteData(data.name);

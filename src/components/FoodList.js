@@ -57,10 +57,10 @@ function FoodList() {
                 maxCaloriesFilter,
                 sortBy,
             });
-    
+
             const res = await fetch(
                 apiUrl +
-                `/recipes/dict?meal_type=${mealTypeFilter}&min_calories=${minCaloriesFilter}&max_calories=${maxCaloriesFilter}&sort_by=${sortBy}`
+                `recipes/dict?meal_type=${mealTypeFilter}&min_calories=${minCaloriesFilter}&max_calories=${maxCaloriesFilter}&sort_by=${sortBy}`
             );
             const menu = await res.json();
             console.log("Fetched data after applying filters:", menu);
@@ -69,7 +69,7 @@ function FoodList() {
             console.error(error);
         }
     };
-    
+
 
 
     return (
@@ -78,9 +78,9 @@ function FoodList() {
             <div className="filters" style={{ backgroundColor: 'yellow' }}>
                 <select onChange={(e) => setMealTypeFilter(e.target.value)}>
                     <option value="">All Meal Types</option>
-                    <option value="Breakfast">Breakfast</option>
-                    <option value="Lunch">Lunch</option>
-                    <option value="Dinner">Dinner</option>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="dinner">Dinner</option>
                 </select>
                 <input
                     type="number"

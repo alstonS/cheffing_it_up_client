@@ -7,11 +7,13 @@ function FindRecipe() {
 
     const [menu, setMenu] = useState([]);
     const [searchText, setSearchText] = useState('');
+    const [searchBy, setSearchBy] = useState('');
 
 
     const handleSubmit = React.useCallback((event) => {
         event.preventDefault();
-        setSearchText(event.target[0].value);
+        setSearchBy(event.target[0].value)
+        setSearchText(event.target[1].value);
     }, []);
 
     const fetchData = (searchText) => {
@@ -34,10 +36,32 @@ function FindRecipe() {
             });
     }
 
+    const fetchByIngredient = (searchText) => {
+        fetch(apiUrl + "/recipes/find/" + searchText)
+            .then((res) => {
+                return res.json();
+            })
+            .then((menu) => {
+                setMenu(menu);
+                if (menu[`Dishes with ${searchText}`].length === 0) {
+                    alert(`Dishes with ${searchText} were not found.`)
+                }
+                console.log(menu);
+            })
+            .catch((error) => {
+                console.error(error);
+                alert(error);
+                console.log("In Error");
+            });
+    }
+
     useEffect(() => {
-        if (searchText !== '') {
+        if (searchText !== '' && searchBy === 'name') {
             fetchData(searchText);
             console.log(searchText)
+        }
+        if (searchText !== '' && searchBy === 'ingredient') {
+            fetchByIngredient(searchText);
         }
     }, [searchText]);
 
@@ -45,9 +69,16 @@ function FindRecipe() {
         <div className="Testing React">
             <>
                 <form onSubmit={handleSubmit}>
-                    <input placeholder="Search for a recipe by name" type='text' />
+                    <label for="options">Search by: </label>
+                    <select name="options" id="options">
+                        <option value="name">name</option>
+                        <option value="ingredient">ingredient</option>
+                    </select>
+                    <br></br>
+                    <input type='text' />
+
                 </form>
-                {menu[searchText] &&
+                {searchBy === 'name' && menu[searchText] &&
                     (<>
                         <h3> {menu[searchText]['name']} </h3>
                         <p>Meal of Day: {menu[searchText]["meal of Day"]}</p>
@@ -62,6 +93,16 @@ function FindRecipe() {
                         <p className='indent'> Vitamin C: {menu[searchText].Micronutrients['Vitamin C']} grams</p>
                         <p className='indent'> Calcium: {menu[searchText].Micronutrients['Calcium']} grams</p>
                         <p className='indent'> Iron: {menu[searchText].Micronutrients['Iron']} grams</p>
+                    </>)
+                }
+                {searchBy === 'ingredient' && menu[`Dishes with ${searchText}`] &&
+                    (<> <p> List of dishes with <strong> {searchText} </strong>: </p>
+                        <p> {menu[`Dishes with ${searchText}`].map((item, index) => {
+                            if (index === 0) {
+                                return <>{item}</>
+                            }
+                            return <><br />{item}</>
+                        })} </p>
                     </>)
                 }
             </>

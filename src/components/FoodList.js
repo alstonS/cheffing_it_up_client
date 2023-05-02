@@ -5,147 +5,100 @@ import './FoodList.css'
 
 const apiUrl = 'https://cheffing-it-up.herokuapp.com/';
 
+function FoodItem({ recipe }) {
+    return (
+        <div>
+            <h3>{recipe.name}</h3>
+            <p>Meal of Day: {recipe["meal of Day"]}</p>
+            <p>Ingredients: {recipe.ingredients.join(', ')}</p>
+            <p>Calories: {recipe.calories}</p>
+            <p>Macronutrients:</p>
+            <ul>
+                <li>Protein: {recipe.Macronutrients.Protein} grams</li>
+                <li>Carbohydrates: {recipe.Macronutrients.Carbohydrates} grams</li>
+                <li>Fats: {recipe.Macronutrients.Fat} grams</li>
+            </ul>
+            <p>Micronutrients:</p>
+            <ul>
+                <li>Vitamin A: {recipe.Micronutrients["Vitamin A"]} grams</li>
+                <li>Vitamin C: {recipe.Micronutrients["Vitamin C"]} grams</li>
+                <li>Calcium: {recipe.Micronutrients.Calcium} grams</li>
+                <li>Iron: {recipe.Micronutrients.Iron} grams</li>
+            </ul>
+        </div>
+    );
+}
+
 function FoodList() {
-
-    // useEffect(async () => {
-    //   axios.get(apiUrl + 'recipes/dict')
-    //       .then((data)=> {
-    //           console.log(data);
-    //           debugger
-    //       })
-    // }, []);
     const [menu, setMenu] = useState([]);
-    const [foodTypes, setFoodTypes] = useState([]);
-    const [showData, setShowData] = useState(false);
-    const [showFoodTypes, setShowFoodTypes] = useState(false);
-
-    const handleDataToggle = () => {
-        setShowData((current) => !current);
-    };
-
-    const handleTypesToggle = () => {
-        setShowFoodTypes((current) => !current);
-    };
+    const [mealTypeFilter, setMealTypeFilter] = useState('');
+    const [minCaloriesFilter, setMinCaloriesFilter] = useState('');
+    const [maxCaloriesFilter, setMaxCaloriesFilter] = useState('');
+    const [sortBy, setSortBy] = useState('');
 
     useEffect(() => {
-        const fetchData = () => {
-            fetch(apiUrl + "/recipes/dict")
-                .then((res) => res.json())
-                .then((menu) => {
-                    setMenu(menu);
-                    setShowData(true);
-                    console.log("There was a response");
-                    console.log(menu);
-                })
-                .catch((error) => {
-                    console.error(error);
-                    console.log("In Error");
-                });
-        }
-        // const fetchFoodTypes = () => {
-        //     fetch(apiUrl + "/food_types/list")
-        //         .then((res) => res.json())
-        //         .then((foodTypes) => {
-        //             setFoodTypes(foodTypes);
-        //             setShowFoodTypes(true);
-        //             console.log("There was a response");
-        //             console.log(foodTypes);
-        //         })
-        //         .catch((error) => {
-        //             console.error(error);
-        //             console.log("In Error");
-        //         });
-        // };
+        const fetchData = async () => {
+            try {
+                const res = await fetch(apiUrl + "/recipes/dict");
+                const menu = await res.json();
+                setMenu(menu);
+            } catch (error) {
+                console.error(error);
+            }
+        };
         fetchData();
-        // fetchFoodTypes();
     }, []);
 
+    const handleFilterChange = async () => {
+        try {
+            const res = await fetch(
+                apiUrl +
+                `/recipes/dict?meal_type=${mealTypeFilter}&min_calories=${minCaloriesFilter}&max_calories=${maxCaloriesFilter}&sort_by=${sortBy}`
+            );
+            const menu = await res.json();
+            setMenu(menu);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
-
-
-
-
-    console.log(menu)
-    console.log("Hello")
 
     return (
         <div className="FoodList">
-            {/* <button onClick={handleDataToggle}>Show Information</button> */}
-            {/* <button onClick={handleTypesToggle}>Show Food Types</button> */}
-            {/* {showData && ( */}
-            <>
-                {menu && menu.Data ? (
-                    Object.entries(menu.Data).map(([key, value]) => (
-                        <div key={key}>
-                            <h3>{value.name}</h3>
-                            <p>Meal of Day: {value["meal of Day"]}</p>
-                            <p>Ingredients: {(value.ingredients).join(', ')}</p>
-                            <p>Calories: {value.calories}</p>
-                            <p>Macronutrients:</p>
-                            <p class='indent'> Protein: {value.Macronutrients['Protein']} grams</p>
-                            <p class='indent'> Carbohydrates: {value.Macronutrients['Carbohydrates']} grams</p>
-                            <p class='indent'> Fats: {value.Macronutrients['Fat']} grams</p>
-                            <p>Micronutrients: </p>
-                            <p class='indent'> Vitamin A: {value.Micronutrients['Vitamin A']} grams</p>
-                            <p class='indent'> Vitamin C: {value.Micronutrients['Vitamin C']} grams</p>
-                            <p class='indent'> Calcium: {value.Micronutrients['Calcium']} grams</p>
-                            <p class='indent'> Iron: {value.Micronutrients['Iron']} grams</p>
-                        </div>
-                    ))
-                ) : (
-                    <p>Loading...</p>
-                )}
-            </>
-            {/* )}
-            {showFoodTypes && (
-                <>
-                    {foodTypes && foodTypes.food_types_list ? (
-                        foodTypes.food_types_list.map((foodType) => (
-                            <div key={foodType}>
-                                <h3>{foodType}</h3>
-                            </div>
-                        ))
-                    ) : (
-                        <p>Loading...</p>
-                    )}
-                </>
-            )} */}
+            <h2>Food Menu</h2>
+            <div className="filters" style={{ backgroundColor: 'yellow' }}>
+                <select onChange={(e) => setMealTypeFilter(e.target.value)}>
+                    <option value="">All Meal Types</option>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Lunch">Lunch</option>
+                    <option value="Dinner">Dinner</option>
+                </select>
+                <input
+                    type="number"
+                    placeholder="Min Calories"
+                    onChange={(e) => setMinCaloriesFilter(e.target.value)}
+                />
+                <input
+                    type="number"
+                    placeholder="Max Calories"
+                    onChange={(e) => setMaxCaloriesFilter(e.target.value)}
+                />
+                <select onChange={(e) => setSortBy(e.target.value)}>
+                    <option value="">Sort By</option>
+                    <option value="alphabetical">Alphabetical</option>
+                    <option value="calories">Calories</option>
+                </select>
+                <button onClick={handleFilterChange}>Apply Filters</button>
+            </div>
+            {menu && menu.Data ? (
+                Object.entries(menu.Data).map(([key, value]) => (
+                    <FoodItem key={key} recipe={value} />
+                ))
+            ) : (
+                <p>Loading...</p>
+            )}
         </div>
     );
-
-
-    // const [menu, setMenu] = useState([]);
-    // const [isLoading, setIsLoading] = useState(true);
-
-    // useEffect(() => {
-    //   fetch("http://localhost:8000/food_types/list")
-    //     .then(res => res.json())
-    //     .then(menu => {
-    //       setMenu(menu)
-    //       console.log("There was a response")
-    //       console.log(menu)
-    //     })
-    //     .catch(error => console.error(error))
-    //     console.log("In Error")
-    // }, [])
-
-    // console.log(menu)
-    // console.log("Hello")
-
-    // return (
-    //   <div className="Testing React">
-    //     {(menu && menu.food_types_list) ? (
-    //       menu.food_types_list.map((foodType) => (
-    //         <div key={foodType}>
-    //           <h3>{foodType}</h3>
-    //         </div>
-    //       ))        
-    //     ) : (
-    //       <p>Loading...</p>
-    //     )}
-    //   </div>
-    // );
-
 
 }
 

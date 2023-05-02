@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form';
 
 import './AddRecipe.css'
 
-const apiUrl = 'https://cheffing-it-up.herokuapp.com/';
+// const apiUrl = 'https://cheffing-it-up.herokuapp.com/';
+const apiUrl = 'http://127.0.0.1:8000/'
 
 export const AddRecipe = () => {
     const [foodTypes, setFoodTypes] = useState([]);
@@ -89,7 +90,7 @@ export const AddRecipe = () => {
                 </div>
                 <div className='form-control'>
                     <label>Meal of Day</label>
-                    <select {...register('meal of Day')}>
+                    <select required {...register('meal of Day')}>
 
                         {foodTypes?.map((currentFoodType, index) => {
                             return <option key={index} >

@@ -39,7 +39,7 @@ function FoodList() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch(apiUrl + "recipes/dict");
+                const res = await fetch(apiUrl + "/recipes/dict");
                 const menu = await res.json();
                 setMenu(menu);
             } catch (error) {

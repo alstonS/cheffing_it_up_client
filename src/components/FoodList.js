@@ -51,16 +51,25 @@ function FoodList() {
 
     const handleFilterChange = async () => {
         try {
+            console.log("Filters applied:", {
+                mealTypeFilter,
+                minCaloriesFilter,
+                maxCaloriesFilter,
+                sortBy,
+            });
+    
             const res = await fetch(
                 apiUrl +
                 `/recipes/dict?meal_type=${mealTypeFilter}&min_calories=${minCaloriesFilter}&max_calories=${maxCaloriesFilter}&sort_by=${sortBy}`
             );
             const menu = await res.json();
+            console.log("Fetched data after applying filters:", menu);
             setMenu(menu);
         } catch (error) {
             console.error(error);
         }
     };
+    
 
 
     return (

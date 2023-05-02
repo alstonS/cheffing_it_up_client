@@ -73,7 +73,7 @@ function FoodList() {
 
 
     return (
-        <div>
+        <div className="FoodList">
             <h2>Food Menu</h2>
             <div className="filters" style={{ backgroundColor: 'yellow' }}>
                 <select onChange={(e) => setMealTypeFilter(e.target.value)}>
@@ -91,23 +91,23 @@ function FoodList() {
                     type="number"
                     placeholder="Max Calories"
                     onChange={(e) => setMaxCaloriesFilter(e.target.value)}
-                                />
-            <select onChange={(e) => setSortBy(e.target.value)}>
-                <option value="">Sort By</option>
-                <option value="alphabetical">Alphabetical</option>
-                <option value="calories">Calories</option>
-            </select>
-            <button onClick={handleFilterChange}>Apply Filters</button>
+                />
+                <select onChange={(e) => setSortBy(e.target.value)}>
+                    <option value="">Sort By</option>
+                    <option value="alphabetical">Alphabetical</option>
+                    <option value="calories">Calories</option>
+                </select>
+                <button onClick={handleFilterChange}>Apply Filters</button>
+            </div>
+            {menu && menu.Data ? (
+                Object.entries(menu.Data).map(([key, value]) => (
+                    <FoodItem key={key} recipe={value} />
+                ))
+            ) : (
+                <p>Loading...</p>
+            )}
         </div>
-        {menu && menu.Data ? (
-            Object.entries(menu.Data).map(([key, value]) => (
-                <FoodItem key={key} recipe={value} />
-            ))
-        ) : (
-            <p>Loading...</p>
-        )}
-    </div>
-);
+    );
 
 }
 

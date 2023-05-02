@@ -2,3 +2,7 @@
     display:grid;
     justify-content:space-between;
 }
+
+.DeleteRecipe {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}

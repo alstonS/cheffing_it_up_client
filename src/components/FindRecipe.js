@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import React from 'react';
+import './FindRecipe.css'
 
 const apiUrl = 'https://cheffing-it-up.herokuapp.com/';
 
@@ -66,7 +67,7 @@ function FindRecipe() {
     }, [searchText]);
 
     return (
-        <div className="Testing React">
+        <div className="FindRecipe">
             <>
                 <form onSubmit={handleSubmit}>
                     <label for="options">Search by: </label>

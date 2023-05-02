@@ -1,0 +1,12 @@
+.Home {
+    padding: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+
+}
+
+.list {
+    align-items: center;
+}

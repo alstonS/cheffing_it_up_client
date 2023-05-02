@@ -69,7 +69,7 @@ function FoodList() {
     console.log("Hello")
 
     return (
-        <div className="Testing React">
+        <div className="FoodList">
             {/* <button onClick={handleDataToggle}>Show Information</button> */}
             {/* <button onClick={handleTypesToggle}>Show Food Types</button> */}
             {/* {showData && ( */}

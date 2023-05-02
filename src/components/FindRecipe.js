@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from 'react';
 
 const apiUrl = 'https://cheffing-it-up.herokuapp.com/';
@@ -6,34 +6,40 @@ const apiUrl = 'https://cheffing-it-up.herokuapp.com/';
 function FindRecipe() {
 
     const [menu, setMenu] = useState([]);
-    const [foodTypes, setFoodTypes] = useState([]);
     const [searchText, setSearchText] = useState('');
 
-    const handleSubmit = (event) => {
+
+    const handleSubmit = React.useCallback((event) => {
         event.preventDefault();
         setSearchText(event.target[0].value);
-        fetchData(searchText);
-    };
-
+    }, []);
 
     const fetchData = (searchText) => {
         fetch(apiUrl + "/recipes/details/" + searchText)
-            .then((res) => res.json())
+            .then((res) => {
+                if (res.status === 404) {
+                    throw new Error(`${searchText} was not found.`)
+                }
+                else {
+                    return res.json();
+                }
+            })
             .then((menu) => {
                 setMenu(menu);
-                // setShowData(true);
-                console.log("There was a response");
-                console.log(menu);
             })
             .catch((error) => {
                 console.error(error);
+                alert(error);
                 console.log("In Error");
             });
     }
 
-
-    console.log(menu);
-    console.log(searchText);
+    useEffect(() => {
+        if (searchText !== '') {
+            fetchData(searchText);
+            console.log(searchText)
+        }
+    }, [searchText]);
 
     return (
         <div className="Testing React">
@@ -41,27 +47,26 @@ function FindRecipe() {
                 <form onSubmit={handleSubmit}>
                     <input placeholder="Search for a recipe by name" type='text' />
                 </form>
-                {JSON.stringify(menu)}
+                {menu[searchText] &&
+                    (<>
+                        <h3> {menu[searchText]['name']} </h3>
+                        <p>Meal of Day: {menu[searchText]["meal of Day"]}</p>
+                        <p>Ingredients: {(menu[searchText]['ingredients']).join(', ')}</p>
+                        <p>Calories: {menu[searchText]['calories']}</p>
+                        <p>Macronutrients:</p>
+                        <p className='indent'> Protein: {menu[searchText].Macronutrients['Protein']} grams</p>
+                        <p className='indent'> Carbohydrates: {menu[searchText].Macronutrients['Carbohydrates']} grams</p>
+                        <p className='indent'> Fats: {menu[searchText].Macronutrients['Fat']} grams</p>
+                        <p>Micronutrients: </p>
+                        <p className='indent'> Vitamin A: {menu[searchText].Micronutrients['Vitamin A']} grams</p>
+                        <p className='indent'> Vitamin C: {menu[searchText].Micronutrients['Vitamin C']} grams</p>
+                        <p className='indent'> Calcium: {menu[searchText].Micronutrients['Calcium']} grams</p>
+                        <p className='indent'> Iron: {menu[searchText].Micronutrients['Iron']} grams</p>
+                    </>)
+                }
             </>
-
-        </div>
+        </div >
     );
-
-
-
-    // return (
-    //   <div className="Testing React">
-    //     {(menu && menu.food_types_list) ? (
-    //       menu.food_types_list.map((foodType) => (
-    //         <div key={foodType}>
-    //           <h3>{foodType}</h3>
-    //         </div>
-    //       ))        
-    //     ) : (
-    //       <p>Loading...</p>
-    //     )}
-    //   </div>
-    // );
 
 
 }

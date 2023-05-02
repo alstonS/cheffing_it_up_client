@@ -3,8 +3,7 @@ import { useForm } from 'react-hook-form';
 
 import './AddRecipe.css'
 
-// const apiUrl = 'https://cheffing-it-up.herokuapp.com/';
-const apiUrl = 'http://127.0.0.1:8000/'
+const apiUrl = 'https://cheffing-it-up.herokuapp.com/';
 
 export const AddRecipe = () => {
     const [foodTypes, setFoodTypes] = useState([]);

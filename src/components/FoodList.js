@@ -71,12 +71,12 @@ function FoodList() {
     };
 
 
-
     return (
         <div className="FoodList">
             <h2>Food Menu</h2>
             <div className="filters" style={{ backgroundColor: 'white' }}>
                 <select onChange={(e) => setMealTypeFilter(e.target.value)}>
+                    <option value="">All Meal Types</option>
                     <option value="anytime">All Meal Types</option>
                     <option value="breakfast">Breakfast</option>
                     <option value="lunch">Lunch</option>

@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import React from 'react';
-//import axios from 'axios';
 import './FoodList.css'
 
 const apiUrl = 'https://cheffing-it-up.herokuapp.com/';
 
 function FoodItem({ recipe }) {
     return (
-        <div>
+        <div className="food-item">
             <h3>{recipe.name}</h3>
             <p>Meal of Day: {recipe["meal of Day"]}</p>
             <p>Ingredients: {recipe.ingredients.join(', ')}</p>
@@ -35,15 +34,19 @@ function FoodList() {
     const [minCaloriesFilter, setMinCaloriesFilter] = useState('');
     const [maxCaloriesFilter, setMaxCaloriesFilter] = useState('');
     const [sortBy, setSortBy] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setIsLoading(true);
                 const res = await fetch(apiUrl + "/recipes/dict");
                 const menu = await res.json();
                 setMenu(menu);
             } catch (error) {
                 console.error(error);
+            } finally {
+                setIsLoading(false);
             }
         };
         fetchData();
@@ -51,6 +54,7 @@ function FoodList() {
 
     const handleFilterChange = async () => {
         try {
+            setIsLoading(true);
             console.log("Filters applied:", {
                 mealTypeFilter,
                 minCaloriesFilter,
@@ -67,14 +71,15 @@ function FoodList() {
             setMenu(menu);
         } catch (error) {
             console.error(error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
-
     return (
-        <div className="FoodList">
+        <div className="food-list">
             <h2>Food Menu</h2>
-            <div className="filters" style={{ backgroundColor: 'white' }}>
+            <div className="filters">
                 <select onChange={(e) => setMealTypeFilter(e.target.value)}>
                     <option value="">All Meal Types</option>
                     <option value="anytime">Anytime</option>
@@ -99,16 +104,17 @@ function FoodList() {
                 </select>
                 <button onClick={handleFilterChange}>Apply Filters</button>
             </div>
-            {menu && menu.Data ? (
-                Object.entries(menu.Data).map(([key, value]) => (
-                    <FoodItem key={key} recipe={value} />
-                ))
-            ) : (
+            {isLoading ? (
                 <p>Loading...</p>
+            ) : (
+                menu && menu.Data && (
+                    Object.entries(menu.Data).map(([key, value]) => (
+                        <FoodItem key={key} recipe={value} />
+                    ))
+                )
             )}
         </div>
     );
-
 }
 
 export default FoodList;

@@ -127,7 +127,7 @@ export const AddRecipe = () => {
             Calcium: <input type="number" required name="Calcium" {...register('Calcium')} /> grams
           </div>
           <div>
-            Iron: <input type="number" required name="Iron" {...register('Iron')} /> grams
+            Iron: <input type="number" required name="Iron" {...register('Iron')} /> 
           </div>
         </div>
         <div className="form-control">

@@ -1,8 +1,65 @@
 .form-control {
-    display:grid;
-    justify-content:space-between;
-}
-
-.AddRecipe {
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
-}
+    display: grid;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .AddRecipe {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .AddRecipe form {
+    width: 100%;
+  }
+  
+  .AddRecipe label {
+    font-weight: bold;
+  }
+  
+  .AddRecipe input,
+  .AddRecipe select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    width: 100%;
+  }
+  
+  .AddRecipe button[type="submit"] {
+    padding: 5px 20px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    background-color: #007bff;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .AddRecipe button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  .AddRecipe .form-control div {
+    margin-bottom: 5px;
+  }
+  
+  .AddRecipe .form-control div input {
+    width: 70px;
+  }
+  
+  .AddRecipe .form-control div::after {
+    content: 'grams';
+    margin-left: 5px;
+    color: #6c757d;
+  }
+  
+  .AddRecipe .form-control:last-child {
+    margin-top: 20px;
+    justify-content: center;
+  }
+  
+  .AddRecipe .form-control:last-child button[type="submit"] {
+    width: 100%;
+  }
+  

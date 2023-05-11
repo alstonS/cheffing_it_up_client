@@ -136,7 +136,7 @@ export const AddRecipe = () => {
         </div>
       </form>
     </div>
-  );  
+  );    
 };
 
 export default AddRecipe;

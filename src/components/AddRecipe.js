@@ -106,28 +106,28 @@ export const AddRecipe = () => {
         <div className="form-control">
           <label>Macronutrients</label>
           <div>
-            Protein: <input type="number" required name="Protein" {...register('Protein')} /> grams
+            Protein: <input type="number" required name="Protein" {...register('Protein')} />
           </div>
           <div>
-            Carbohydrates: <input type="number" required name="Carbohydrates" {...register('Carbohydrates')} /> grams
+            Carbohydrates: <input type="number" required name="Carbohydrates" {...register('Carbohydrates')} />
           </div>
           <div>
-            Fat: <input type="number" required name="Fat" {...register('Fat')} /> grams
+            Fat: <input type="number" required name="Fat" {...register('Fat')} />
           </div>
         </div>
         <div className="form-control">
           <label>Micronutrients</label>
           <div>
-            Vitamin A: <input type="number" required name="Vitamin A" {...register('Vitamin A')} /> grams
+            Vitamin A: <input type="number" required name="Vitamin A" {...register('Vitamin A')} />
           </div>
           <div>
-            Vitamin C: <input type="number" required name="Vitamin C" {...register('Vitamin C')} /> grams
+            Vitamin C: <input type="number" required name="Vitamin C" {...register('Vitamin C')} />
           </div>
           <div>
-            Calcium: <input type="number" required name="Calcium" {...register('Calcium')} /> grams
+            Calcium: <input type="number" required name="Calcium" {...register('Calcium')} />
           </div>
           <div>
-            Iron: <input type="number" required name="Iron" {...register('Iron')} /> 
+            Iron: <input type="number" required name="Iron" {...register('Iron')} />
           </div>
         </div>
         <div className="form-control">

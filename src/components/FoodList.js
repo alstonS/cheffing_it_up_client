@@ -78,7 +78,7 @@ function FoodList() {
 
     return (
         <div className="food-list">
-            <h2>Food Menu</h2>
+            <h2>Recipe List</h2>
             <div className="filters">
                 <select onChange={(e) => setMealTypeFilter(e.target.value)}>
                     <option value="">All Meal Types</option>

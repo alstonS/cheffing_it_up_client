@@ -106,37 +106,36 @@ export const AddRecipe = () => {
         <div className="form-control">
           <label>Macronutrients</label>
           <div>
-            Protein: <input type="number" required name="Protein" {...register('Protein')} />
+            Protein: <input type="number" required name="Protein" {...register('Protein')} /> grams
           </div>
           <div>
-            Carbohydrates: <input type="number" required name="Carbohydrates" {...register('Carbohydrates')} />
+            Carbohydrates: <input type="number" required name="Carbohydrates" {...register('Carbohydrates')} /> grams
           </div>
           <div>
-            Fat: <input type="number" required name="Fat" {...register('Fat')} />
+            Fat: <input type="number" required name="Fat" {...register('Fat')} /> grams
           </div>
         </div>
         <div className="form-control">
           <label>Micronutrients</label>
           <div>
-            Vitamin A: <input type="number" required name="Vitamin A" {...register('Vitamin A')} />
+            Vitamin A: <input type="number" required name="Vitamin A" {...register('Vitamin A')} /> grams
           </div>
           <div>
-            Vitamin C: <input type="number" required name="Vitamin C" {...register('Vitamin C')} />
+            Vitamin C: <input type="number" required name="Vitamin C" {...register('Vitamin C')} /> grams
           </div>
           <div>
-            Calcium: <input type="number" required name="Calcium" {...register('Calcium')} />
+            Calcium: <input type="number" required name="Calcium" {...register('Calcium')} /> grams
           </div>
           <div>
-            Iron: <input type="number" required name="Iron" {...register('Iron')} />
+            Iron: <input type="number" required name="Iron" {...register('Iron')} /> grams
           </div>
         </div>
         <div className="form-control">
-          <label></label>
           <button type="submit">Add Recipe</button>
         </div>
       </form>
     </div>
-  );    
+  );  
 };
 
 export default AddRecipe;
